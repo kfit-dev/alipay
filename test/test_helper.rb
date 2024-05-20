@@ -4,6 +4,9 @@ require 'webmock/minitest'
 
 Alipay.pid = '1000000000000000'
 Alipay.key = '10000000000000000000000000000000'
+Alipay.legacy_gateway_url = 'https://api-sea-global.alipayplus.com'
+
+STUB_URL_REGEX = %r{https://api-sea-global\.alipayplus\.com/gateway\.do.*}.freeze
 
 TEST_RSA_PUBLIC_KEY = <<EOF
 -----BEGIN PUBLIC KEY-----

@@ -25,6 +25,7 @@ $ bundle
 ```ruby
 Alipay.pid = 'YOUR_PID'
 Alipay.key = 'YOUR_KEY'
+Alipay.legacy_gateway_url = 'ALIPAY_GATEWAY_URL_FOR_YOUR_REGION'
 
 #Alipay.sign_type = 'MD5' # Available values: MD5, RSA. Default is MD5
 #Alipay.debug_mode = true # Enable parameter check. Default is true.
@@ -72,7 +73,7 @@ Alipay::Service.create_partner_trade_by_buyer_url(
   return_url: 'https://example.com/orders/20150401000-0001',
   notify_url: 'https://example.com/orders/20150401000-0001/notify'
 )
-# => 'https://mapi.alipay.com/gateway.do?service=create_partner_trade_by_buyer&...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=create_partner_trade_by_buyer&...'
 ```
 
 Guide consumer to this address to complete payment
@@ -277,7 +278,7 @@ Alipay::Service.refund_fastpay_by_platform_pwd_url(
   }],
   notify_url: 'https://example.com/orders/20150401000-0001/refund_notify'
 )
-# => https://mapi.alipay.com/gateway.do?service=refund_fastpay_by_platform_pwd&...
+# => https://api-sea-global.alipayplus.com/gateway.do?service=refund_fastpay_by_platform_pwd&...
 ```
 
 #### Arguments
@@ -389,7 +390,7 @@ Alipay::Service.create_forex_trade_url(
   total_fee: '10.00',
   notify_url: 'https://example.com/orders/20150401000-0001/notify'
 )
-# => 'https://mapi.alipay.com/gateway.do?service=create_forex_trade...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=create_forex_trade...'
 ```
 
 #### ARGUMENTS
@@ -498,7 +499,7 @@ Alipay::Service.batch_trans_notify_url(
   batch_fee: 1000.00,
   email: 'biz_932@alitest.com'
 )
-#=> 'https://mapi.alipay.com/gateway.do?service=batch_trans_notify&...'
+#=> 'https://api-sea-global.alipayplus.com/gateway.do?service=batch_trans_notify&...'
 ```
 
 #### Arguments
@@ -572,7 +573,7 @@ create_qr_code_params = {
 }
 
 Alipay::Service.create_merchant_qr_code(create_qr_code_params)
-# => 'https://mapi.alipay.com/gateway.do?service=alipay.commerce.qrcode.create...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=alipay.commerce.qrcode.create...'
 ```
 
 #### ARGUMENTS
@@ -633,7 +634,7 @@ update_qr_code_params = {
 }
 
 Alipay::Service.update_merchant_qr_code(update_qr_code_params)
-# => 'https://mapi.alipay.com/gateway.do?service=alipay.commerce.qrcode.modify...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=alipay.commerce.qrcode.modify...'
 ```
 
 #### ARGUMENTS
@@ -683,7 +684,7 @@ acquirer_overseas_query_params = {
 }
 
 Alipay::Service.acquirer_overseas_query(acquirer_overseas_query_params)
-# => 'https://mapi.alipay.com/gateway.do?service=alipay.acquire.overseas.query...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=alipay.acquire.overseas.query...'
 ```
 
 #### ARGUMENTS
@@ -720,7 +721,7 @@ acquirer_overseas_spot_refund_params = {
 }
 
 Alipay::Service.acquirer_overseas_spot_refund_url(acquirer_overseas_spot_refund_params)
-# => 'https://mapi.alipay.com/gateway.do?service=alipay.acquire.overseas.spot.refund...'
+# => 'https://api-sea-global.alipayplus.com/gateway.do?service=alipay.acquire.overseas.spot.refund...'
 ```
 
 #### ARGUMENTS
