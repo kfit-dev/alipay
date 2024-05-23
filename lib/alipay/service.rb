@@ -1,7 +1,5 @@
 module Alipay
   module Service
-    GATEWAY_URL = 'https://mapi.alipay.com/gateway.do'
-
     CREATE_PARTNER_TRADE_BY_BUYER_REQUIRED_PARAMS = %w( out_trade_no subject logistics_type logistics_fee logistics_payment price quantity )
     def self.create_partner_trade_by_buyer_url(params, options = {})
       params = Utils.stringify_keys(params)
@@ -10,8 +8,8 @@ module Alipay
       params = {
         'service'        => 'create_partner_trade_by_buyer',
         '_input_charset' => 'utf-8',
-        'partner'        => options[:pid] || Alipay.pid,
-        'seller_id'      => options[:pid] || Alipay.pid,
+        'partner'        => options[:partner]   || options[:pid] || Alipay.pid,
+        'seller_id'      => options[:seller_id] || options[:pid] || Alipay.pid,
         'payment_type'   => '1'
       }.merge(params)
 
@@ -26,8 +24,8 @@ module Alipay
       params = {
         'service'        => 'trade_create_by_buyer',
         '_input_charset' => 'utf-8',
-        'partner'        => options[:pid] || Alipay.pid,
-        'seller_id'      => options[:pid] || Alipay.pid,
+        'partner'        => options[:partner]   || options[:pid] || Alipay.pid,
+        'seller_id'      => options[:seller_id] || options[:pid] || Alipay.pid,
         'payment_type'   => '1'
       }.merge(params)
 
@@ -46,8 +44,8 @@ module Alipay
       params = {
         'service'        => 'create_direct_pay_by_user',
         '_input_charset' => 'utf-8',
-        'partner'        => options[:pid] || Alipay.pid,
-        'seller_id'      => options[:pid] || Alipay.pid,
+        'partner'        => options[:partner]   || options[:pid] || Alipay.pid,
+        'seller_id'      => options[:seller_id] || options[:pid] || Alipay.pid,
         'payment_type'   => '1'
       }.merge(params)
 
@@ -62,8 +60,8 @@ module Alipay
       params = {
         'service'        => 'alipay.wap.create.direct.pay.by.user',
         '_input_charset' => 'utf-8',
-        'partner'        => options[:pid] || Alipay.pid,
-        'seller_id'      => options[:pid] || Alipay.pid,
+        'partner'        => options[:partner]   || options[:pid] || Alipay.pid,
+        'seller_id'      => options[:seller_id] || options[:pid] || Alipay.pid,
         'payment_type'   => '1'
       }.merge(params)
 
@@ -202,15 +200,12 @@ module Alipay
       params = {
         'service'        => 'create_forex_trade_wap',
         '_input_charset' => 'utf-8',
-        'partner'        => options[:pid] || Alipay.pid,
-        'seller_id'      => options[:pid] || Alipay.pid
+        'partner'        => options[:partner]   || options[:pid] || Alipay.pid,
+        'seller_id'      => options[:seller_id] || options[:pid] || Alipay.pid,
       }.merge(params)
 
       request_uri(params, options).to_s
     end
-
-    # Alipay Commerce
-    # alipay doc: https://global.alipay.com/service/merchant_QR_Code/15
 
     CREATE_MERCHANT_QR_CODE_REQUIRED_PARAMS = %w( biz_type biz_data )
     CREATE_MERCHANT_QR_CODE_REQUIRED_BIZ_DATA_PARAMS = %w( secondary_merchant_industry secondary_merchant_id secondary_merchant_name trans_currency currency )
@@ -219,7 +214,7 @@ module Alipay
       check_required_params(params, CREATE_MERCHANT_QR_CODE_REQUIRED_PARAMS)
       biz_data = nil
 
-      if params['biz_data'].present?
+      if params['biz_data']
         params['biz_data'] = Utils.stringify_keys(params['biz_data'])
         check_required_params(params['biz_data'], CREATE_MERCHANT_QR_CODE_REQUIRED_BIZ_DATA_PARAMS)
 
@@ -248,7 +243,7 @@ module Alipay
       check_required_params(params, UPDATE_MERCHANT_QR_CODE_REQUIRED_PARAMS)
       biz_data = nil
 
-      if params['biz_data'].present?
+      if params['biz_data']
         params['biz_data'] = Utils.stringify_keys(params['biz_data'])
 
         data = params.delete('biz_data')
@@ -299,7 +294,7 @@ module Alipay
     end
 
     def self.request_uri(params, options = {})
-      uri = URI(GATEWAY_URL)
+      uri = URI("#{Alipay.legacy_gateway_url}/gateway.do")
       uri.query = URI.encode_www_form(sign_params(params, options))
       uri
     end

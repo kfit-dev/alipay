@@ -1,5 +1,24 @@
 ## master
 
+Newer release changelog, see https://github.com/chloerei/alipay/releases
+
+## v0.16.0 (2020-05-15)
+
+- Support certificate signature, thanks @moohao #92
+
+## v0.15.2 (2019-08-02)
+
+- page_execute_form invalid-signature charset, thanks @lingceng #90
+
+## v0.15.1 (2018-06-16)
+
+- Add `partner` and `seller_id` options for legacy API, thanks @KQyongzhang #83
+
+## v0.15.0 (2017-08-27)
+
+- Add `Alipay::Client` for open API.
+- Stop adding new feature to Alipay::Service, Alipay::App::Service, Alipay::Wap::Service, Alipay::Mobile::Service.
+
 ## v0.14.0 (2016-12-28)
 
 - Add `Alipay::App::Service.create_forex_trade_wap_url` method, thanks @xiaohesong #61

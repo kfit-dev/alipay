@@ -17,21 +17,21 @@ class Alipay::Wap::NotifyTest < Minitest::Test
 
   def test_unsign_notify
     stub_request(
-      :get, "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
+      :get, "#{Alipay.legacy_gateway_url}/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
     ).to_return(body: "true")
     assert !Alipay::Wap::Notify.verify?(@notify_params)
   end
 
   def test_verify_notify_when_true
     stub_request(
-      :get, "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
+      :get, "#{Alipay.legacy_gateway_url}/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
     ).to_return(body: "true")
     assert Alipay::Wap::Notify.verify?(@sign_params)
   end
 
   def test_verify_notify_when_false
     stub_request(
-      :get, "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
+      :get, "#{Alipay.legacy_gateway_url}/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{@notify_id}"
     ).to_return(body: "false")
     assert !Alipay::Wap::Notify.verify?(@sign_params)
   end
